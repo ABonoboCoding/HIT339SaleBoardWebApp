@@ -17,5 +17,7 @@ namespace MinxuanLinSaleBoardSite.Models
         public DateTime DateOfBirth { get; set; }
 
         public string Address { get; set; }
+
+        public virtual ICollection<ItemInfo>Items { get; set; }
     }
 }

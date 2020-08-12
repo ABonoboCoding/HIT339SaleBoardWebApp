@@ -14,6 +14,8 @@ namespace MinxuanLinSaleBoardSite.Data
         {
         }
 
+        public DbSet<ItemInfo> Item { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
