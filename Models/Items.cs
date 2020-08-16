@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MinxuanLinSaleBoardSite.Models
 {
-    public class ItemInfo
+    public class Items
     {
         [Key]
         public int ItemId { get; set; }

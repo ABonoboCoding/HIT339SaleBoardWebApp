@@ -9,15 +9,18 @@ namespace MinxuanLinSaleBoardSite.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
+        [Display(Name = "Full Name")]
         public string Name { get; set; }
 
-        public int Age { get; set; }
+        [Display(Name = "Date of Birth")]
 
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
+        [Display(Name = "Full address")]
         public string Address { get; set; }
 
-        public virtual ICollection<ItemInfo>Items { get; set; }
+        public virtual ICollection<Items>Items { get; set; }
     }
 }

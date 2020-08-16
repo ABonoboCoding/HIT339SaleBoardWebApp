@@ -14,7 +14,8 @@ namespace MinxuanLinSaleBoardSite.Data
         {
         }
 
-        public DbSet<ItemInfo> Item { get; set; }
+        public DbSet<Items> Items { get; set; }
+        public DbSet<Sales> Sales { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

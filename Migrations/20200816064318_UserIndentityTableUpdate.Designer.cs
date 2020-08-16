@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MinxuanLinSaleBoardSite.Data;
 
 namespace MinxuanLinSaleBoardSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200816064318_UserIndentityTableUpdate")]
+    partial class UserIndentityTableUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,6 +165,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -186,6 +189,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -228,7 +232,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MinxuanLinSaleBoardSite.Models.Items", b =>
+            modelBuilder.Entity("MinxuanLinSaleBoardSite.Models.ItemInfo", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
@@ -271,28 +275,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("MinxuanLinSaleBoardSite.Models.Sales", b =>
-                {
-                    b.Property<int>("SaleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Buyer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("SaleId");
-
-                    b.ToTable("Sales");
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -346,7 +329,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MinxuanLinSaleBoardSite.Models.Items", b =>
+            modelBuilder.Entity("MinxuanLinSaleBoardSite.Models.ItemInfo", b =>
                 {
                     b.HasOne("MinxuanLinSaleBoardSite.Models.ApplicationUser", null)
                         .WithMany("Items")
