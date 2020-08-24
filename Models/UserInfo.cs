@@ -20,7 +20,5 @@ namespace MinxuanLinSaleBoardSite.Models
 
         [Display(Name = "Full address")]
         public string Address { get; set; }
-
-        public virtual ICollection<Items>Items { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace MinxuanLinSaleBoardSite.Models
     public class Items
     {
         [Key]
-        public int ItemId { get; set; }
+        public int Id { get; set; }
 
         public string ItemName { get; set; }
 
@@ -30,7 +30,6 @@ namespace MinxuanLinSaleBoardSite.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime LastUpdated { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public int UserID { get; set; }
+        public string Seller { get; set; }
     }
 }
