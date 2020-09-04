@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using MinxuanLinSaleBoardSite.Data;
 using MinxuanLinSaleBoardSite.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MinxuanLinSaleBoardSite.Controllers
+namespace MinxuanLinSaleBoardSite
 {
     public class ItemsController : Controller
     {
@@ -29,8 +30,15 @@ namespace MinxuanLinSaleBoardSite.Controllers
 
         // GET: Items/myItems
         public ActionResult MyItems()
-        {
+        {   
             var seller = _userManager.GetUserName(User);
+            
+            if (seller == null)
+            {
+                ViewBag.errorMessage = "You are currently not logged in, please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             var items = _context.Items
                 .Where(i => i.Seller == seller);
             return View("Index", items);
@@ -46,7 +54,7 @@ namespace MinxuanLinSaleBoardSite.Controllers
 
             var items = await _context.Items
                 .FirstOrDefaultAsync(i => i.Id == id);
-            
+
             if (items == null)
             {
                 return NotFound();
@@ -64,7 +72,7 @@ namespace MinxuanLinSaleBoardSite.Controllers
         // POST: ItemsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ItemName,ItemImg,ItemDesc,ItemPrice,ItemCategory,ItemQuantity,Posted,LastUpdated,Seller")] Items items)
+        public async Task<IActionResult> Create([Bind("Id,ItemName,ItemImg,ItemDesc,ItemPrice,ItemCategory,ItemQuantity,Posted,LastUpdated")] Items items)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +112,13 @@ namespace MinxuanLinSaleBoardSite.Controllers
                 return NotFound();
             }
 
+            var seller = _userManager.GetUserName(User);
+            if (seller != items.Seller)
+            {
+                ViewBag.errorMessage = "You cannot edit this item as you are not logged in as the user who create the item.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -140,6 +155,13 @@ namespace MinxuanLinSaleBoardSite.Controllers
             if (items == null)
             {
                 return NotFound();
+            }
+
+            var loggedInUser = _userManager.GetUserName(User);
+            if (items.Seller != loggedInUser)
+            {
+                ViewBag.errorMessage = "You can not delete the item as you are not logged in as the user who create the item. Please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             return View(items);
@@ -213,7 +235,7 @@ namespace MinxuanLinSaleBoardSite.Controllers
 
         private bool ItemsExists(int id)
         {
-            return _context.Items.Any(e => e.Id == id);
+            return _context.Items.Any(i => i.Id == id);
         }
     }
 }

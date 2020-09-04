@@ -14,8 +14,8 @@ namespace MinxuanLinSaleBoardSite.Data
         {
         }
 
-        public DbSet<Items> Items { get; set; }
-        public DbSet<Sales> Sales { get; set; }
+        public DbSet<MinxuanLinSaleBoardSite.Models.Items> Items { get; set; }
+        public DbSet<MinxuanLinSaleBoardSite.Models.Sales> Sales { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,3 +23,19 @@ namespace MinxuanLinSaleBoardSite.Data
         }
     }
 }
+
+/* Commands:
+            dotnet tool install --global dotnet-ef 
+
+            dotnet ef migrations add InitialCreate   -- creates script 
+
+             
+
+            dotnet ef database update  -- creates db and runs the migration 
+
+             
+
+            dotnet ef migrations remove 
+
+            dotnet ef database drop 
+         */

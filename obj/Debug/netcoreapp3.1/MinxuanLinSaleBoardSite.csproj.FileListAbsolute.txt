@@ -180,3 +180,9 @@ D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Min
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\MinxuanLinSaleBoardSite.MvcApplicationPartsAssemblyInfo.cs
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\MinxuanLinSaleBoardSite.MvcApplicationPartsAssemblyInfo.cache
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Create.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Delete.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Details.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Edit.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Index.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
