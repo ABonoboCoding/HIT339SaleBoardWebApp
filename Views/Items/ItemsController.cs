@@ -41,7 +41,7 @@ namespace MinxuanLinSaleBoardSite
 
             var items = _context.Items
                 .Where(i => i.Seller == seller);
-            return View("Index", items);
+            return View("MyItems", items);
         }
 
         // GET: ItemsController/Details/5
@@ -152,6 +152,7 @@ namespace MinxuanLinSaleBoardSite
 
             var items = await _context.Items
                 .FirstOrDefaultAsync(i => i.Id == id);
+
             if (items == null)
             {
                 return NotFound();
@@ -168,7 +169,7 @@ namespace MinxuanLinSaleBoardSite
         }
 
         // POST: ItemsController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -197,7 +198,7 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // POST: Items/Purchase/5
+        // POST: ItemsController/Purchase/5
         [HttpPost, ActionName("Purchase")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PurchaseConfirmed([Bind("Item,Quantity")] Sales sales)
