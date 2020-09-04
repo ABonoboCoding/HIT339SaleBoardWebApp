@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using MinxuanLinSaleBoardSite.Data;
 using MinxuanLinSaleBoardSite.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace MinxuanLinSaleBoardSite
+namespace MinxuanLinSaleBoardSite.Controllers
 {
     public class ItemsController : Controller
     {
@@ -22,8 +21,7 @@ namespace MinxuanLinSaleBoardSite
             _userManager = userManager;
             _context = context;
         }
-
-        // GET: Items
+        // GET: ItemsController
         public async Task<IActionResult> Index()
         {
             return View(await _context.Items.ToListAsync());
@@ -34,11 +32,11 @@ namespace MinxuanLinSaleBoardSite
         {
             var seller = _userManager.GetUserName(User);
             var items = _context.Items
-                .Where(m => m.Seller == seller);
+                .Where(i => i.Seller == seller);
             return View("Index", items);
         }
 
-        // GET: Items/Details/5
+        // GET: ItemsController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +45,8 @@ namespace MinxuanLinSaleBoardSite
             }
 
             var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(i => i.Id == id);
+            
             if (items == null)
             {
                 return NotFound();
@@ -56,19 +55,16 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // GET: Items/Create
-        [Authorize]
-        public IActionResult Create()
+        // GET: ItemsController/Create
+        public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Items/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: ItemsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Quantity")] Items items)
+        public async Task<IActionResult> Create([Bind("Id,ItemName,ItemImg,ItemDesc,ItemPrice,ItemCategory,ItemQuantity,Posted,LastUpdated,Seller")] Items items)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +78,7 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // GET: Items/Edit/5
+        // GET: ItemsController/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -98,12 +94,10 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // POST: Items/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: ItemsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] Items items)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemName,ItemImg,ItemDesc,ItemPrice,ItemCategory,ItemQuantity,Posted,LastUpdated,Seller")] Items items)
         {
             if (id != items.Id)
             {
@@ -133,7 +127,7 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // GET: Items/Delete/5
+        // GET: ItemsController/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,7 +136,7 @@ namespace MinxuanLinSaleBoardSite
             }
 
             var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(i => i.Id == id);
             if (items == null)
             {
                 return NotFound();
@@ -151,8 +145,8 @@ namespace MinxuanLinSaleBoardSite
             return View(items);
         }
 
-        // POST: Items/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: ItemsController/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -162,7 +156,8 @@ namespace MinxuanLinSaleBoardSite
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Items/Purchase/5
+
+        // GET: ItemsController/Purchase/5
         public async Task<IActionResult> Purchase(int? id)
         {
             if (id == null)
@@ -171,7 +166,7 @@ namespace MinxuanLinSaleBoardSite
             }
 
             var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(i => i.Id == id);
             if (items == null)
             {
                 return NotFound();
@@ -194,9 +189,14 @@ namespace MinxuanLinSaleBoardSite
 
             // find the item
             var items = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == sales.Item);
+                .FirstOrDefaultAsync(i => i.Id == sales.Item);
 
             if (items == null)
+            {
+                return NotFound();
+            }
+
+            if (items.ItemQuantity < sales.Quantity)
             {
                 return NotFound();
             }
