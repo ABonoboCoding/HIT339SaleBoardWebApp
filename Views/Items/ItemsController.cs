@@ -78,6 +78,13 @@ namespace MinxuanLinSaleBoardSite
             {
                 // get the seller
                 var seller = _userManager.GetUserName(User);
+
+                //if not logged in, cannot creaate item
+                if (seller == null)
+                {
+                    ViewBag.errorMessage = "You are not logged in! Please log in!";
+                    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                }
                 items.Seller = seller;
                 _context.Add(items);
                 await _context.SaveChangesAsync();
@@ -201,8 +208,9 @@ namespace MinxuanLinSaleBoardSite
         // POST: ItemsController/Purchase/5
         [HttpPost, ActionName("Purchase")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PurchaseConfirmed([Bind("Item,Quantity")] Sales sales)
+        public async Task<IActionResult> PurchaseConfirmed([Bind("Item,ItemQuantity")] Sales sales)
         {
+
             // get the buyer
             var buyer = _userManager.GetUserName(User);
             sales.Buyer = buyer;
@@ -219,13 +227,15 @@ namespace MinxuanLinSaleBoardSite
                 return NotFound();
             }
 
-            if (items.ItemQuantity < sales.Quantity)
+            //Check if buying quantity is over quantity available
+                if (items.ItemQuantity < sales.ItemQuantity)
             {
-                return NotFound();
+                ViewBag.errorMessage = "Hi, it seems like the quantity of purchase is higher than the quantity you wish to purchase, please readjust the quantity of purchase then try again! Thank you.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             // update the quantity
-            items.ItemQuantity -= sales.Quantity;
+            items.ItemQuantity -= sales.ItemQuantity;
             _context.Update(items);
 
             // Save the changes

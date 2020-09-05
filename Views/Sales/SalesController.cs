@@ -82,7 +82,7 @@ namespace MinxuanLinSaleBoardSite
         // POST: SalesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,Quantity")] Sales sales)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Item,Buyer,SaleQuantity")] Sales sales)
         {
             if (id != sales.Id)
             {
@@ -132,7 +132,7 @@ namespace MinxuanLinSaleBoardSite
 
         // POST: SalesController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken,ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sales = await _context.Sales.FindAsync(id);

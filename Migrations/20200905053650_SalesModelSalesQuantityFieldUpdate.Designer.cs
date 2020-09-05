@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MinxuanLinSaleBoardSite.Data;
 
 namespace MinxuanLinSaleBoardSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200905053650_SalesModelSalesQuantityFieldUpdate")]
+    partial class SalesModelSalesQuantityFieldUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,7 +279,7 @@ namespace MinxuanLinSaleBoardSite.Migrations
                     b.Property<int>("Item")
                         .HasColumnType("int");
 
-                    b.Property<int>("ItemQuantity")
+                    b.Property<int>("SaleQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

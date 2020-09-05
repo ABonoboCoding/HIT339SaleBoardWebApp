@@ -187,3 +187,9 @@ D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Raz
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Index.cshtml.g.cs
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
 D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\MyItems.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Items\Purchase.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Create.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Delete.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Details.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Edit.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MinxuanLinSaleBoardSite\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Index.cshtml.g.cs

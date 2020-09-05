@@ -15,7 +15,6 @@ namespace MinxuanLinSaleBoardSite.Models
 
         public string Buyer { get; set; }
 
-        public int Quantity { get; set; }
-      
+        public int ItemQuantity { get; set; }
     }
 }
