@@ -79,7 +79,7 @@ namespace MinxuanLinSaleBoardSite
                 // get the seller
                 var seller = _userManager.GetUserName(User);
 
-                //if not logged in, cannot creaate item
+                //if not logged in, cannot create item
                 if (seller == null)
                 {
                     ViewBag.errorMessage = "You are not logged in! Please log in!";
@@ -227,8 +227,14 @@ namespace MinxuanLinSaleBoardSite
                 return NotFound();
             }
 
+            if (items.ItemQuantity == 0)
+            {
+                ViewBag.errorMessage = "This are no stock available for this item at the moment, please check back later.";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             //Check if buying quantity is over quantity available
-                if (items.ItemQuantity < sales.ItemQuantity)
+            if (items.ItemQuantity < sales.ItemQuantity)
             {
                 ViewBag.errorMessage = "Hi, it seems like the quantity of purchase is higher than the quantity you wish to purchase, please readjust the quantity of purchase then try again! Thank you.";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);

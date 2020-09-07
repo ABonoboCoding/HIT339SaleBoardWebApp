@@ -33,7 +33,8 @@ namespace MinxuanLinSaleBoardSite
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI(); 
 
             services.AddIdentityCore<ApplicationUser>()
                 .AddRoles<IdentityRole>()

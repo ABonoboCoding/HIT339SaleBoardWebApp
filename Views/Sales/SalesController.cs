@@ -14,14 +14,23 @@ namespace MinxuanLinSaleBoardSite
     public class SalesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public SalesController(ApplicationDbContext context)
+        public SalesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         // GET: SalesController
         public async Task<IActionResult> Index()
         {
+            var user = _userManager.GetUserName(User);
+
+            if (user == null)
+            {
+                ViewBag.errorMessage = "You are currently not logged in, please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
             return View(await _context.Sales.ToListAsync());
         }
 
