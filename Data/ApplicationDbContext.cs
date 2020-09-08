@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MinxuanLinSaleBoardSite.Models;
 
-namespace MinxuanLinSaleBoardSite.Data
+namespace MLSaleBoard.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+        public DbSet<MLSaleBoard.Models.Items> Items { get; set; }
+        public DbSet<MLSaleBoard.Models.Sales> Sales { get; set; }
 
-        public DbSet<MinxuanLinSaleBoardSite.Models.Items> Items { get; set; }
-        public DbSet<MinxuanLinSaleBoardSite.Models.Sales> Sales { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
+        public DbSet<MLSaleBoard.Models.CartItems> CartItems { get; set; }
     }
 }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g7hRyEE/Ahe7H4d/yXclsowmaZ3+7zliRqlCnG9+ESRWuITWrke7LTaunP7UcUHHeVWKYkubCcROFUgp2SzMkQ==",
+  "dgSpecHash": "JvGRkmjHG+C/3/u89YpnS5mWvOSfwHuHtesRAy3gnvBY/A4vlbhSa7DJuWJYDmZY+aWaIXJw0h0V7+wpAdJ0Lg==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\HIT339\\Repository\\MinxuanLinSaleBoardSite\\MinxuanLinSaleBoardSite.csproj",
+  "projectFilePath": "D:\\Desktop\\HIT339\\Repository\\MLSaleBoard\\MLSaleBoard.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\james\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.6\\microsoft.aspnetcore.cryptography.internal.3.1.6.nupkg.sha512",
     "C:\\Users\\james\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.6\\microsoft.aspnetcore.cryptography.keyderivation.3.1.6.nupkg.sha512",

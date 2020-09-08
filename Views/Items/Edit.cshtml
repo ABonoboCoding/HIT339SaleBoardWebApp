@@ -1,4 +1,4 @@
-﻿@model MinxuanLinSaleBoardSite.Models.Items
+﻿@model MLSaleBoard.Models.Items
 
 @{
     ViewData["Title"] = "Edit";
@@ -42,6 +42,11 @@
                 <label asp-for="ItemQuantity" class="control-label"></label>
                 <input asp-for="ItemQuantity" class="form-control" />
                 <span asp-validation-for="ItemQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Seller" class="control-label"></label>
+                <input readonly = "readonly" asp-for="Seller" class="form-control" />
+                <span asp-validation-for="Seller" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -8960,11 +8960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\HIT339\\Repository\\MinxuanLinSaleBoardSite\\MinxuanLinSaleBoardSite.csproj",
-      "projectName": "MinxuanLinSaleBoardSite",
-      "projectPath": "D:\\Desktop\\HIT339\\Repository\\MinxuanLinSaleBoardSite\\MinxuanLinSaleBoardSite.csproj",
+      "projectUniqueName": "D:\\Desktop\\HIT339\\Repository\\MLSaleBoard\\MLSaleBoard.csproj",
+      "projectName": "MLSaleBoard",
+      "projectPath": "D:\\Desktop\\HIT339\\Repository\\MLSaleBoard\\MLSaleBoard.csproj",
       "packagesPath": "C:\\Users\\james\\.nuget\\packages\\",
-      "outputPath": "D:\\Desktop\\HIT339\\Repository\\MinxuanLinSaleBoardSite\\obj\\",
+      "outputPath": "D:\\Desktop\\HIT339\\Repository\\MLSaleBoard\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\james\\AppData\\Roaming\\NuGet\\NuGet.Config",

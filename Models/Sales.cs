@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MinxuanLinSaleBoardSite.Models
+namespace MLSaleBoard.Models
 {
     public class Sales
     {

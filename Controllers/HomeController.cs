@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MinxuanLinSaleBoardSite.Models;
+using MLSaleBoard.Models;
 
-namespace MinxuanLinSaleBoardSite.Controllers
+namespace MLSaleBoard.Controllers
 {
     public class HomeController : Controller
     {

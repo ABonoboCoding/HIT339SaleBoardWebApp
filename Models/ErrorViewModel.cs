@@ -1,6 +1,6 @@
 using System;
 
-namespace MinxuanLinSaleBoardSite.Models
+namespace MLSaleBoard.Models
 {
     public class ErrorViewModel
     {
