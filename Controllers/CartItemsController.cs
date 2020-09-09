@@ -23,13 +23,7 @@ namespace MLSaleBoard
         }
 
         // GET: CartItems
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.CartItems.ToListAsync());
-        }
-
-        // GET: MyCartItems
-        public ActionResult MyCartItems()
+        public IActionResult Index()
         {
             var buyer = _userManager.GetUserName(User);
 
@@ -41,7 +35,7 @@ namespace MLSaleBoard
 
             var cartitems = _context.CartItems
                 .Where(i => i.Buyer == buyer);
-            return View("MyCartItems", cartitems);
+            return View(cartitems);
         }
 
         // GET: CartItems/Details/5
@@ -169,20 +163,24 @@ namespace MLSaleBoard
         }
 
         //Get request to complete payment 
-        public async Task <IActionResult> PaymentConfirmed(Sales sales)
+        public async Task <IActionResult> PaymentConfirmed()
         {
             var buyer = _userManager.GetUserName(User);
 
             //Defining a check for loop
             var check = 1;
 
-            sales.Buyer = buyer;
-
-            // make the sale
-            _context.Add(sales);
+            //Defining a check for checking if cart is empty from the beginning
+            var emptyCart = 1;
 
             while (check == 1)
             {
+                Sales sales = new Sales();
+                sales.Buyer = buyer;
+
+                // make the sale
+                _context.Add(sales);
+
                 // find the items
                 var cartItems = await _context.CartItems
                     .FirstOrDefaultAsync(c => c.Buyer == buyer);
@@ -190,17 +188,29 @@ namespace MLSaleBoard
                 //Check if cart is empty
                 if (cartItems == null)
                 {
+                    if (emptyCart==1)
+                    {
+                        ViewBag.errorMessage = "There are no items in your cart! Please add items to your cart before processing!";
+                        return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                    }
                     check = 0;
+                    break;
                 }
+
+                emptyCart = 0;
 
                 sales.Item = cartItems.Item;
                 sales.ItemQuantity = cartItems.ItemQuantity;
-
+         
                 var items = await _context.Items
                     .FirstOrDefaultAsync(i => i.Id == cartItems.Item);
 
+                sales.Total = sales.ItemQuantity * items.ItemPrice;
+
+                sales.Seller = items.Seller;
+
                 //Check if there are any stock for the item
-                if (items.ItemQuantity < 1)
+                if (items.ItemQuantity == 0)
                 {
                     ViewBag.errorMessage = "This are no stock available for a item at the moment, please check back later.";
                     return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
@@ -220,10 +230,9 @@ namespace MLSaleBoard
                 _context.CartItems.Remove(cartItems);
 
                 _context.Update(items);
-            }
 
-            // Save the changes
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
 
             return View();
         }

@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Add to cart</h2>
 
-<h3>Are you sure you want to buy this?</h3>
+<h3>Are you sure you want to add this to your cart?</h3>
 <div>
     <h4>Items</h4>
     <hr />
@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.ItemPrice)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ItemPrice)
+            $@Html.DisplayFor(model => model.ItemPrice)
         </dd>
     </dl>
 

@@ -101,10 +101,23 @@ namespace MLSaleBoard
                 return NotFound();
             }
 
+            var user = _userManager.GetUserName(User);
+            if (user == null)
+            {
+                ViewBag.errorMessage = "You must be logged in to edit items. Please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             var items = await _context.Items.FindAsync(id);
             if (items == null)
             {
                 return NotFound();
+            }
+
+            if (user != items.Seller)
+            {
+                ViewBag.errorMessage = "You are not logged in as the user who created the item!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
             return View(items);
         }
@@ -117,13 +130,6 @@ namespace MLSaleBoard
             if (id != items.Id)
             {
                 return NotFound();
-            }
-
-            var loggedInUser = _userManager.GetUserName(User);
-            if (items.Seller != loggedInUser)
-            {
-                ViewBag.errorMessage = "You cannot edit this item as you are not logged in as the user who create the item.";
-                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             if (ModelState.IsValid)
@@ -214,13 +220,16 @@ namespace MLSaleBoard
             // get the buyer
             var buyer = _userManager.GetUserName(User);
             sales.Buyer = buyer;
-
+  
             // make the sale
             _context.Add(sales);
 
             // find the item
             var items = await _context.Items
                 .FirstOrDefaultAsync(i => i.Id == sales.Item);
+
+            //set the seller
+            sales.Seller = items.Seller;
 
             if (items == null)
             {
@@ -229,7 +238,7 @@ namespace MLSaleBoard
 
             if (items.ItemQuantity == 0)
             {
-                ViewBag.errorMessage = "This are no stock available for this item at the moment, please check back later.";
+                ViewBag.errorMessage = "There are no stock available for this item at the moment, please check back later.";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
@@ -253,6 +262,8 @@ namespace MLSaleBoard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
+            sales.Total = sales.ItemQuantity * items.ItemPrice;
+
             // update the quantity
             items.ItemQuantity -= sales.ItemQuantity;
             _context.Update(items);
@@ -261,7 +272,7 @@ namespace MLSaleBoard
             // Save the changes
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return View("Views/Items/PaymentConfirmed.cshtml");
         }
 
         // GET: ItemsController/AddToCart/5
@@ -270,6 +281,13 @@ namespace MLSaleBoard
             if (id == null)
             {
                 return NotFound();
+            }
+
+            var user = _userManager.GetUserName(User);
+            if(user == null)
+            {
+                ViewBag.errorMessage = "You must be logged in to add items to cart. Please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             var items = await _context.Items
@@ -330,6 +348,8 @@ namespace MLSaleBoard
                 ViewBag.errorMessage = "Sorry, you must purchase at least one of this item!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
+
+            cartitems.Total = cartitems.ItemQuantity * items.ItemPrice;
 
             // update the quantity, Update later when cart payment confirm
             //items.ItemQuantity -= cartitems.ItemQuantity;

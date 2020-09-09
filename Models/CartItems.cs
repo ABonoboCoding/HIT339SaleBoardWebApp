@@ -10,15 +10,15 @@ namespace MLSaleBoard.Models
     public class CartItems
     {
         [Key]
-        public int Id { get; set; }
-
-        public int CartId { get; set; }
+        public int Id { get; set; } 
 
         public int Item { get; set; }
 
         public int ItemQuantity { get; set; }
 
         public string Buyer { get; set; }
+
+        public decimal Total { get; set; }
         
     }
 }

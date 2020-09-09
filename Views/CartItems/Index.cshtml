@@ -19,32 +19,40 @@
                 @Html.DisplayNameFor(model => model.ItemQuantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Buyer)
+                @Html.DisplayNameFor(model => model.Total)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Buyer)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemQuantity)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
+@{ decimal total = 0;
+    @foreach (var item in Model)
+    {
+        total += item.Total;
+    }
+    <h3>Cart total: $@total</h3>
+}
 <a asp-action="PaymentConfirmed">Confirm payment</a>
 

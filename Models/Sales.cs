@@ -15,6 +15,10 @@ namespace MLSaleBoard.Models
 
         public string Buyer { get; set; }
 
+        public string Seller { get; set; }
+
         public int ItemQuantity { get; set; }
+
+        public decimal Total { get; set; }
     }
 }

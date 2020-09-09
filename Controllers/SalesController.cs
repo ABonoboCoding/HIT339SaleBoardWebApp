@@ -22,7 +22,7 @@ namespace MLSaleBoard
             _userManager = userManager;
         }
         // GET: SalesController
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var user = _userManager.GetUserName(User);
 
@@ -31,7 +31,28 @@ namespace MLSaleBoard
                 ViewBag.errorMessage = "You are currently not logged in, please log in!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
-            return View(await _context.Sales.ToListAsync());
+
+            var sales = _context.Sales
+                .Where(s => s.Buyer == user);
+
+            return View(sales);
+        }
+
+        //Get my sales
+        public IActionResult MySales()
+        {
+            var user = _userManager.GetUserName(User);
+
+            if (user == null)
+            {
+                ViewBag.errorMessage = "You are currently not logged in, please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            var sales = _context.Sales
+                .Where(s => s.Seller == user);
+
+            return View("MySales", sales);
         }
 
         // GET: SalesController/Details/5

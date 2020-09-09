@@ -4,14 +4,16 @@ using MLSaleBoard.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MLSaleBoard.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200908025052_RemovalOfCartIdFieldFromCartItemsModel")]
+    partial class RemovalOfCartIdFieldFromCartItemsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace MLSaleBoard.Data.Migrations
 
                     b.Property<int>("ItemQuantity")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -94,12 +93,6 @@ namespace MLSaleBoard.Data.Migrations
 
                     b.Property<int>("ItemQuantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("Seller")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
