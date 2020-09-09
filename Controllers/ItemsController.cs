@@ -9,6 +9,7 @@ using MLSaleBoard.Data;
 using MLSaleBoard.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MLSaleBoard
 {
@@ -22,10 +23,40 @@ namespace MLSaleBoard
             _userManager = userManager;
             _context = context;
         }
-        // GET: ItemsController
-        public async Task<IActionResult> Index()
+        //// GET: ItemsController
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Items.ToListAsync());
+        //}
+
+        // GET: Movies
+        public async Task<IActionResult> Index(string itemCategory, string searchString)
         {
-            return View(await _context.Items.ToListAsync());
+            // Use LINQ to get list of genres.
+            IQueryable<string> itemCategoryQuery = from m in _context.Items
+                                            orderby m.ItemCategory
+                                            select m.ItemCategory;
+
+            var items = from i in _context.Items
+                         select i;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(s => s.ItemName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(itemCategory))
+            {
+                items = items.Where(x => x.ItemCategory == itemCategory);
+            }
+
+            var itemResults = new ItemSearch
+            {
+                ItemCategory = new SelectList(await itemCategoryQuery.Distinct().ToListAsync()),
+                Items = await items.ToListAsync()
+            };
+
+            return View(itemResults);
         }
 
         // GET: Items/myItems

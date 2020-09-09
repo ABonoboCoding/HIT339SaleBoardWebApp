@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MLSaleBoard.Models.Items>
+﻿@model MLSaleBoard.Models.ItemSearch
 
 @{
     ViewData["Title"] = "All items";
@@ -10,64 +10,76 @@
 <p>
     <!--<a asp-action="Create">Create New</a>-->
 </p>
+<form asp-controller="Items" asp-action="Index" method="get">
+    <p>
+        <select asp-for="ItemCategory" asp-items="Model.ItemCategory">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ItemName)
+                @Html.DisplayNameFor(model => model.Items[0].ItemName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemImg)
+                @Html.DisplayNameFor(model => model.Items[0].ItemImg)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemDesc)
+                @Html.DisplayNameFor(model => model.Items[0].ItemDesc)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemPrice)
+                @Html.DisplayNameFor(model => model.Items[0].ItemPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemCategory)
+                @Html.DisplayNameFor(model => model.Items[0].ItemCategory)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemQuantity)
+                @Html.DisplayNameFor(model => model.Items[0].ItemQuantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Seller)
+                @Html.DisplayNameFor(model => model.Items[0].Seller)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemImg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemDesc)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.ItemPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seller)
-            </td>
-            <td>
-                |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Purchase" asp-route-id="@item.Id">Purchase</a> |
-                <a asp-action="AddToCart" asp-route-id="@item.Id">Add to Cart</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemImg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemDesc)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.ItemPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seller)
+                </td>
+                <td>
+                    |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Purchase" asp-route-id="@item.Id">Purchase</a> |
+                    <a asp-action="AddToCart" asp-route-id="@item.Id">Add to Cart</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
