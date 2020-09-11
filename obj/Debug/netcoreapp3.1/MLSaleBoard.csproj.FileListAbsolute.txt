@@ -201,3 +201,4 @@ D:\Desktop\HIT339\Repository\MLSaleBoard\obj\Debug\netcoreapp3.1\Razor\Views\Ite
 D:\Desktop\HIT339\Repository\MLSaleBoard\obj\Debug\netcoreapp3.1\Razor\Views\CartItems\PaymentConfirmed.cshtml.g.cs
 D:\Desktop\HIT339\Repository\MLSaleBoard\obj\Debug\netcoreapp3.1\Razor\Views\Items\PaymentConfirmed.cshtml.g.cs
 D:\Desktop\HIT339\Repository\MLSaleBoard\obj\Debug\netcoreapp3.1\Razor\Views\Sales\MySales.cshtml.g.cs
+D:\Desktop\HIT339\Repository\MLSaleBoard\obj\Debug\netcoreapp3.1\Razor\Views\Items\Admin.cshtml.g.cs

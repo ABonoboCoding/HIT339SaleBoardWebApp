@@ -70,9 +70,36 @@ namespace MLSaleBoard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
+            if (seller == "Admin@Admin.Com")
+            {
+                ViewBag.errorMessage = "Admins cannot access this function. Please head to Admin tab to access functionalities!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+
             var items = _context.Items
                 .Where(i => i.Seller == seller);
             return View("MyItems", items);
+        }
+
+        // GET: Items/myItems
+        public async Task<ActionResult> AdminAsync()
+        {
+            var user = _userManager.GetUserName(User);
+
+            if (user == "Admin@Admin.Com")
+            {
+                return View(await _context.Items.ToListAsync());
+            }
+
+            if (user == null)
+            {
+                ViewBag.errorMessage = "You are not logged in as an Admin! Please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            ViewBag.errorMessage = "You are not allowed to access this function as you are not logged in as an Admin!";
+            return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
         }
 
         // GET: ItemsController/Details/5
@@ -109,6 +136,12 @@ namespace MLSaleBoard
             {
                 // get the seller
                 var seller = _userManager.GetUserName(User);
+
+                if (seller == "Admin@Admin.Com")
+                {
+                    ViewBag.errorMessage = "Admins cannot access this function. Please head to Admin tab to access functionalities!";
+                    return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+                }
 
                 //if not logged in, cannot create item
                 if (seller == null)
@@ -147,9 +180,14 @@ namespace MLSaleBoard
 
             if (user != items.Seller)
             {
+                if (user == "Admin@Admin.Com")
+                {
+                    return View(items);
+                }
                 ViewBag.errorMessage = "You are not logged in as the user who created the item!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
+
             return View(items);
         }
 
@@ -205,6 +243,10 @@ namespace MLSaleBoard
             var loggedInUser = _userManager.GetUserName(User);
             if (items.Seller != loggedInUser)
             {
+                if (loggedInUser == "Admin@Admin.Com")
+                {
+                    return View(items);
+                }
                 ViewBag.errorMessage = "You can not delete the item as you are not logged in as the user who create the item. Please log in!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
@@ -230,6 +272,15 @@ namespace MLSaleBoard
             if (id == null)
             {
                 return NotFound();
+            }
+
+            // get the user
+            var user = _userManager.GetUserName(User);
+
+            if (user == "Admin@Admin.Com")
+            {
+                ViewBag.errorMessage = "Admins cannot purchase items, please access Admin tab for admin functionalities!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
             var items = await _context.Items
@@ -280,6 +331,13 @@ namespace MLSaleBoard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
+            //Check if any user is logged in
+            if (buyer == null)
+            {
+                ViewBag.errorMessage = "Sorry, you are not logged in, please log in to purchase items!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             //Check if the user selling it is buying the product
             if (items.Seller == buyer)
             {
@@ -318,6 +376,12 @@ namespace MLSaleBoard
             if(user == null)
             {
                 ViewBag.errorMessage = "You must be logged in to add items to cart. Please log in!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
+            if (user == "Admin@Admin.Com")
+            {
+                ViewBag.errorMessage = "Admins cannot purchase items, please access Admin tab for admin functionalities!";
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 

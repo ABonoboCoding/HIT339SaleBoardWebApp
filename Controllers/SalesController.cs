@@ -49,6 +49,13 @@ namespace MLSaleBoard
                 return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
             }
 
+
+            if (user == "Admin@Admin.Com")
+            {
+                ViewBag.errorMessage = "Admins cannot access this function. Please head to Admin tab to access functionalities!";
+                return View("Views/Home/Error.cshtml", ViewBag.errorMessage);
+            }
+
             var sales = _context.Sales
                 .Where(s => s.Seller == user);
 
